@@ -14,7 +14,6 @@ model = whisper.load_model("base")
 from flask import Flask, render_template, request
 from transformers import pipeline
 
-app = Flask(__name__)
 
 
 generator = pipeline("text-generation", model="gpt2")
@@ -62,7 +61,7 @@ def STT():
     return render_template('STT.html')
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/text_speech', methods=['GET', 'POST'])
 def TTS():
     if request.method == 'POST':
         user_text = request.form['text']
@@ -76,10 +75,11 @@ def TTS():
         engine.say(user_text)
         engine.runAndWait()
 
-        return redirect(url_for('index'))
+        return render_template('index.html')
+
 
     return render_template('index.html')
 
 
-if __name__ == "_main_":
+if __name__ == "__main__":
     app.run(debug=True)
