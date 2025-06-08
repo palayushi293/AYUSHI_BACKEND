@@ -9,8 +9,8 @@ PROJECT BACKEND INTERN
 
 4 flask for deployment and endpoint 
 
-/text  for speech to text
-</b>
-/text_speech  for text to speech
-</b>
-/generate_quest  for generation of text 
+5  /text  for speech to text
+
+6 /text_speech  for text to speech
+
+7  /generate_quest  for generation of text 
