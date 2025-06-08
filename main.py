@@ -20,19 +20,17 @@ app = Flask(__name__)
 generator = pipeline("text-generation", model="gpt2")
 
 @app.route('/generate_quest', methods=['GET', 'POST'])
-def index():
+def text_gen():
     if request.method == 'POST':
         user_input = request.form['prompt']
         output = generator(user_input, max_length=100, num_return_sequences=1)
         generated_text = output[0]['generated_text']
-        return render_template('result.html', prompt=user_input, result=generated_text)
-    return render_template('text_G_Res.html')
+        return render_template('text_gen_output.html', prompt=user_input, result=generated_text)
+    return render_template('text_gen_o.html')
 
-if __name__ == "_main_":
-    app.run(debug=True)
 
 @app.route('/text', methods=['GET', 'POST'])
-def transcribe_audio():
+def STT():
     if request.method == 'POST':
         if 'audio' not in request.files:
             return "No file part", 400
@@ -61,11 +59,11 @@ def transcribe_audio():
         os.remove(filepath)
         return render_template('result.html', transcription=transcription)
 
-    return render_template('text.html')
+    return render_template('STT.html')
 
 
 @app.route('/', methods=['GET', 'POST'])
-def index():
+def TTS():
     if request.method == 'POST':
         user_text = request.form['text']
 
